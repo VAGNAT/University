@@ -1,0 +1,34 @@
+﻿@using Services.ViewModel
+@model GroupViewModel
+@{
+    ViewData["Title"] = "AddGroup";
+}
+
+<h1 class = "text-center">Add group</h1>
+<form asp-action = "AddGroup" method = "post">
+    <div class="mb-3">
+        <label for="InputGroup" class="form-label">Name</label>
+        <input asp-for = "Group.Name" type="text" class="form-control" id="InputName">
+        <span asp-validation-for="Group.Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="InputCourseName" class="form-label">Course</label>
+        <input type="text" class="form-control" id="InputCourseName" value = "@Model.CourseName" disabled>
+        <input asp-for = "CourseId" type="hidden" class="form-control" id="InputCourseId" value = "@Model.CourseId">
+    </div>
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group me-2" role="group">
+             <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure?')">Add</button>
+        </div>
+        <div class="btn-group" role="group">
+            <a asp-action="AllGroups" asp-route-courseId = "@Model.CourseId" type="button" class="btn btn-primary">Cancel</a>
+            <a asp-controller="Course" asp-action="AllCourses" type="button" class="btn btn-primary">Main page</a>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+ }
+}
+

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Student>
+@{
+    ViewData["Title"] = "AllStudents";
+    int count = 1;
+}
+<div>
+    <h1 class="display-4 text-center" id="group">@ViewBag.Group.Name</h1>
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 5%">#</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col" style="width: 12%"></th>
+            </tr>
+        </thead>
+        <tbody id="student">
+            @foreach (Student item in Model)
+            {
+                <tr>
+                    <th scope="row">@count</th>
+                    <td><a asp-action="ChangeStudent" asp-route-studentId="@item.Id" asp-route-groupId="@ViewBag.Group.Id">@item.FirstName</a></td>
+                    <td><a asp-action="ChangeStudent" asp-route-studentId="@item.Id" asp-route-groupId="@ViewBag.Group.Id">@item.LastName</a></td>
+                    <td>
+                        <a asp-action="ChangeStudent" asp-route-studentId="@item.Id" asp-route-groupId="@ViewBag.Group.Id" class="btn btn-outline-warning btn-sm">Change</a>
+                        <a asp-action="DeleteStudent" asp-route-studentId="@item.Id" asp-route-groupId="@ViewBag.Group.Id" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+                count++;
+            }
+        </tbody>
+    </table>
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group me-2" role="group">
+            <a asp-action="AddStudent" asp-route-groupId="@ViewBag.Group.Id" type="button" class="btn btn-success">Add</a>
+        </div>
+        <div class="btn-group" role="group">
+            <a asp-controller="Group" asp-action="AllGroups" asp-route-courseId="@ViewBag.Group.Course.Id" type="button" class="btn btn-primary">Previous</a>
+            <a asp-controller="Course" asp-action="AllCourses" type="button" class="btn btn-primary">Main page</a>
+        </div>
+    </div>
+</div>
+

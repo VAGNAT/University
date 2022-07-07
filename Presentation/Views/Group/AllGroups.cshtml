@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Group>
+@{
+    ViewData["Title"] = "Groups";
+    int count = 1;
+}
+
+<div>
+    <h1 class="display-4 text-center" id="course">@ViewBag.Course.Name</h1>
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 5%">#</th>
+                <th scope="col">Group</th>
+                <th scope="col" style="width: 12%"></th>
+            </tr>
+        </thead>
+        <tbody id="group">
+            @foreach (Group item in Model)
+            {
+                <tr>
+                    <th scope="row">@count</th>
+                    <td><a asp-controller="Student" asp-action="AllStudents" asp-route-groupId="@item.Id">@item.Name</a></td>
+                    <td>
+                        <a asp-action="ChangeGroup" asp-route-groupId="@item.Id" asp-route-courseId="@ViewBag.Course.Id" class="btn btn-outline-warning btn-sm">Change</a>
+                        <a asp-action="DeleteGroup" asp-route-groupId="@item.Id" asp-route-courseId="@ViewBag.Course.Id" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+                count++;
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <div>
+            <a asp-action="AddGroup" asp-route-courseId="@ViewBag.Course.Id" type="button" class="btn btn-success">Add</a>
+            <a asp-controller="Course" asp-action="AllCourses" type="button" class="btn btn-primary">Previous</a>
+        </div>
+    </div>
+</div>
+

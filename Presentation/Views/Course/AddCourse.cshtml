@@ -1,0 +1,27 @@
+﻿@model Course
+@{
+    ViewData["Title"] = "AddCourse";
+}
+
+<h1 class="text-center">Add course</h1>
+<form asp-action = "AddCourse" method = "post">
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Name</label>
+        <input asp-for = "Name" type="text" class="form-control" id="InputName">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Description</label>
+        <textarea class="form-control" id="InputDescription" asp-for = "Description" rows = "5"></textarea>
+    </div>
+    <div class="row">
+        <div>
+            <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure?')">Add</button>
+            <a asp-action="AllCourses" type="button" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+

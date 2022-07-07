@@ -1,0 +1,40 @@
+﻿@using Services.ViewModel
+@model StudentViewModel
+@{
+    ViewData["Title"] = "Change student";
+}
+
+<h1 class="text-center">Change student</h1>
+<form asp-action="ChangeStudent" method="post">
+    <div class="mb-3">
+        <label for="InputFirstName" class="form-label">First name</label>
+        <input asp-for="Student.FirstName" type="text" class="form-control" id="InputFirstName">
+        <span asp-validation-for="Student.FirstName" class="text-danger"></span>
+        <input asp-for="Student.Id" type="hidden" value="@Model.Student.Id">
+    </div>
+    <div class="mb-3">
+        <label for="InputLastName" class="form-label">Last name</label>
+        <input asp-for="Student.LastName" type="text" class="form-control" id="InputLastName">
+        <span asp-validation-for="Student.LastName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="InputGroupName" class="form-label">Group</label>
+        <input type="text" class="form-control" id="InputGroupName" value="@Model.GroupName" disabled>
+        <input asp-for="GroupId" type="hidden" class="form-control" id="InputGroup" value="@Model.GroupId">
+    </div>
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group me-2" role="group">
+             <button type="submit" class="btn btn-success" onclick="return confirm('Are you sure?')">Change</button>
+        </div>
+        <div class="btn-group" role="group">
+            <a asp-action="AllStudents" asp-route-groupId="@Model.GroupId" type="button" class="btn btn-primary">Cancel</a>
+            <a asp-controller="Course" asp-action="AllCourses" type="button" class="btn btn-primary">Main page</a>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+ }
+}
+
